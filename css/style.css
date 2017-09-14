@@ -11,3 +11,24 @@ body{
 .title {
     text-align: center;
 }
+
+.select{
+    text-align: center;
+}
+
+.br0 {
+    border-radius: 0px; /*!important;*/
+    margin-right: 15px;
+}
+
+.br1 {
+    border-radius: 0px; /*!important;*/
+    background-color: black;
+    color: white;
+}
+.br1:hover{
+    color: deepskyblue;
+}
+.br1:active{
+    color: red;
+}

@@ -3,6 +3,7 @@
 var controlApp = function () {
 
     this.products = [];
+    this.selectedData = [];
 
     function uniqueVal(value, index, self) {
         return self.indexOf(value) === index;
@@ -27,7 +28,7 @@ var controlApp = function () {
                 sizes.push(v);
             });
         });
-        var sizes = sizes.filter(uniqueVal);
+        sizes = sizes.filter(uniqueVal);
         //console.log(sizes);
         return sizes;
     };
@@ -38,24 +39,18 @@ var controlApp = function () {
         arrObjs.forEach(function(val){
             colors.push(val.color);
         });
-        var colors = colors.filter(uniqueVal);
+        colors = colors.filter(uniqueVal);
         //console.log(colors);
         return colors;
     };
 
     this.drowSelector = function (el, str1, cat, str2, size, str3, color) {
 
-        var div = document.createElement("div");
-        div.setAttribute("class", "row");
-        var divCat = document.createElement("div");
-        div.setAttribute("class", "col-3");
-
-
         //Create Select categories
         var select = document.createElement("select");
-        select.setAttribute("class", "form-control");
+        select.setAttribute("class", "form-control br0");
         select.setAttribute("id", str1);
-
+        select.addEventListener("change", this.selectCat);
         var optionDef = document.createElement("option");
         optionDef.style.fontWeight = 'bold';
         optionDef.innerHTML = str1;
@@ -71,7 +66,7 @@ var controlApp = function () {
 
         //Create select sizes
         var select2 = document.createElement("select");
-        select2.setAttribute("class", "form-control");
+        select2.setAttribute("class", "form-control br0");
         select2.setAttribute("id", str2);
 
         var optionDef2 = document.createElement("option");
@@ -88,9 +83,8 @@ var controlApp = function () {
         });
 
         //Create select color
-
         var select3 = document.createElement("select");
-        select3.setAttribute("class", "form-control");
+        select3.setAttribute("class", "form-control br0");
         select3.setAttribute("id", str3);
 
         var optionDef3 = document.createElement("option");
@@ -107,9 +101,8 @@ var controlApp = function () {
         });
 
         //Create select sort
-
         var selSort = document.createElement("select");
-        selSort.setAttribute("class", "form-control");
+        selSort.setAttribute("class", "form-control br0");
         selSort.setAttribute("id", "sort");
 
         var optionSortDef = document.createElement("option");
@@ -128,20 +121,35 @@ var controlApp = function () {
         selSort.appendChild(optionSort2);
 
         //Create reset
-        var btnClear = document.createElement("button");
-        btnClear.setAttribute("type", "reset");
-        btnClear.innerHTML = "Clear Filtor"
+        var btnClear = document.createElement("span");
+        btnClear.setAttribute("type", "button");
+        btnClear.setAttribute("class", "btn br1");
+        btnClear.addEventListener("click", this.clearFilter);
+        btnClear.innerHTML = "Clear Filtor";
         el.appendChild(btnClear);
-
-
     };
 
+    this.selectCat = function () {
+        var selected = this.options[this.selectedIndex].value;
+        if(selected !== "Categories"){
+            alert(selected);
+            app.selectedData['category'] = selected;
+            console.log(app.selectedData);
+        }
+    };
 
     this.productsfilter = function () {
 
     };
 
+    this.drowGoods = function () {
+        //drow goods on page with considering method filter
 
+    };
+
+    this.clearFilter = function () {
+        alert("Clear success!");
+    }
 };
 
 
