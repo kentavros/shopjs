@@ -4,6 +4,7 @@ var controlApp = function () {
 
     var self = this;
 
+    var goods = document.querySelector(".goods");
     this.products = [];
     this.selectedData = {};
     this.filteredData = [];
@@ -136,35 +137,60 @@ var controlApp = function () {
         var selected = this.options[this.selectedIndex].value;
         if(selected !== "Categories"){
             self.selectedData['category'] = selected;
-            self.productsfilter();
-
-        }
+            alert(self.selectedData['category']);
+          }
+        self.drowGoods();
     };
 
     this.productsfilter = function () {
-        alert(1);
-        for(var key in self.products){
-            for(var prop in self.selectedData){
-                if (self.products[key][prop] == self.selectedData[prop]){
-                    //проверить свойство в объекте и удалить если такое есть
-
-                    //потом пушим
-                    self.filteredData.push(self.products[key]);
-                }
-            }
-        }
-        //DELETE odinakovie obj!!!!!! eto posle vsex viborok
-        console.log(self.filteredData);
-        self.drowGoods();
+        // for(var key in self.products){
+        //     for(var prop in self.selectedData){
+        //         if (self.products[key][prop] == self.selectedData[prop]){
+        //
+        //
+        //             //потом пушим
+        //             self.filteredData.push(self.products[key]);
+        //         }
+        //     }
+        // }
+        // //DELETE odinakovie obj!!!!!! eto posle vsex viborok
+        // console.log(self.filteredData);
+        // self.drowGoods();
 
     };
 
     this.drowGoods = function () {
-        if(self.filteredData.length == 0){
-            alert('drow to deF');
+
+        if (Object.keys(this.selectedData).length == 0){
+            this.products.forEach(function(val){
+                var div1 = document.createElement("div");
+                div1.setAttribute("class", "article");
+
+                var div2 = document.createElement("div");
+
+                var a = document.createElement("a");
+                a.setAttribute("href", "#");
+
+                var img = document.createElement("img");
+                img.setAttribute("src", val['imgs'][0]);
+
+                var p = document.createElement("p");
+                p.innerHTML = val['description'] + " - ";
+
+                var span = document.createElement("span");
+                span.innerHTML = val['priсe'] + " EUR";
+
+                a.appendChild(img);
+                div2.appendChild(a);
+                p.appendChild(span);
+                div2.appendChild(p);
+                div1.appendChild(div2);
+                goods.appendChild(div1);
+            });
         }
-        else{
-            alert('drow selected');
+        else
+        {
+            alert('selected drow');
         }
     };
 
