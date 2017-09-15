@@ -2,8 +2,11 @@
 
 var controlApp = function () {
 
+    var self = this;
+
     this.products = [];
-    this.selectedData = [];
+    this.selectedData = {};
+    this.filteredData = [];
 
     function uniqueVal(value, index, self) {
         return self.indexOf(value) === index;
@@ -132,19 +135,37 @@ var controlApp = function () {
     this.selectCat = function () {
         var selected = this.options[this.selectedIndex].value;
         if(selected !== "Categories"){
-            alert(selected);
-            app.selectedData['category'] = selected;
-            console.log(app.selectedData);
+            self.selectedData['category'] = selected;
+            self.productsfilter();
+
         }
     };
 
     this.productsfilter = function () {
+        alert(1);
+        for(var key in self.products){
+            for(var prop in self.selectedData){
+                if (self.products[key][prop] == self.selectedData[prop]){
+                    //проверить свойство в объекте и удалить если такое есть
+
+                    //потом пушим
+                    self.filteredData.push(self.products[key]);
+                }
+            }
+        }
+        //DELETE odinakovie obj!!!!!! eto posle vsex viborok
+        console.log(self.filteredData);
+        self.drowGoods();
 
     };
 
     this.drowGoods = function () {
-        //drow goods on page with considering method filter
-
+        if(self.filteredData.length == 0){
+            alert('drow to deF');
+        }
+        else{
+            alert('drow selected');
+        }
     };
 
     this.clearFilter = function () {
@@ -163,3 +184,4 @@ var colors = app.getColors();
 var div = document.querySelector(".select");
 
 app.drowSelector(div, "Categories", categories, "Sizes", sizes, "Colors", colors);
+app.drowGoods();
